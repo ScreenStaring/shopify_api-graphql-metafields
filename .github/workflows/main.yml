@@ -7,6 +7,23 @@ on:
 
   pull_request:
 
+# These specs are integration tests: they create, update, and delete metafields on one shared
+# Shopify test store (spec/spec_helper.rb + spec/fixtures/products.csv) using fixed identifiers
+# -- the TEST-* products and the namespace/key pair "shopifyapi-metafields"/"testsuite".
+# Overlapping runs clobber each other, which surfaces as flaky failures in unrelated examples:
+# a read-back of a value an example just set returns the value another run wrote, or
+# metafieldsDelete returns null ("null if the corresponding metafield isn't found") because
+# another run already deleted that metafield. So runs are serialized here.
+#
+# A better solution is to make the tests run-isolated instead: derive the namespace/key (and
+# ideally the products) from something unique per run, e.g. github.run_id, so concurrent runs
+# can never share state. Serializing is a stopgap until then.
+concurrency:
+  # Deliberately not scoped to the ref: a push to master and a PR run share the same store too,
+  # so they must not overlap either.
+  group: "${{ github.workflow }}"
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,6 +34,10 @@ jobs:
       SHOPIFY_DEV_TOOLS_DIR: "${{ github.workspace }}/.shopify-dev-tools"
     name: Ruby ${{ matrix.ruby }}
     strategy:
+      # One Ruby at a time. Every matrix leg runs the full suite against the same test store
+      # (see the comment on the concurrency group above), so parallel legs fight over the same
+      # metafields. Going run-isolated is the real fix; this just makes the failures go away.
+      max-parallel: 1
       matrix:
         ruby: ['4.0', '3.4', '3.3', '3.2', '3.1', '3.0', '2.7']
 

@@ -61,20 +61,28 @@ module ShopifyAPI
         def create(definition, options = nil)
           fields = options ? options[:fields] : DEFAULT_CREATE_FIELDS
 
-          execute(
+          result = execute(
             sprintf(CREATE, field_string(fields)),
             :definition => definition
-          ).dig(:data, :metafield_definition_create).except(:user_errors)
+          ).dig(:data, :metafield_definition_create)
+
+          # We can use #except after 2.7
+          result.delete(:user_errors)
+          result
         end
 
         def delete(id_or_identifier, options = nil)
           fields = options ? options[:fields] : DEFAULT_DELETE_FIELDS
 
-          execute(
+          result = execute(
             sprintf(DELETE, field_string(fields)),
             id_key(id_or_identifier) => id_or_identifier,
             :delete_metafields => options && options[:delete_metafields] == true
-          ).dig(:data, :metafield_definition_delete).except(:user_errors)
+          ).dig(:data, :metafield_definition_delete)
+
+          # We can use #except after 2.7
+          result.delete(:user_errors)
+          result
         end
 
         def get(id_or_identifier, options = nil)
@@ -89,10 +97,14 @@ module ShopifyAPI
         def update(definition, options = nil)
           fields = options ? options[:fields] : DEFAULT_UPDATE_FIELDS
 
-          execute(
+          result = execute(
             sprintf(UPDATE, field_string(fields)),
             :definition => definition
-          ).dig(:data, :metafield_definition_update).except(:user_errors)
+          ).dig(:data, :metafield_definition_update)
+
+          # We can use #except after 2.7
+          result.delete(:user_errors)
+          result
         end
 
         private

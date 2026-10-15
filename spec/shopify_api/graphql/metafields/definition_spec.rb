@@ -30,6 +30,7 @@ RSpec.describe ShopifyAPI::GraphQL::Metafields::Definition do
       id = gid.to_sc(result[:created_definition][:id])
       shopify = definitions("product").find { |d| d["id"] == id }
       expect(shopify).to eq(
+        "access" => { "admin" => "PUBLIC_READ_WRITE", "customerAccount" => "NONE", "storefront" => "NONE" },
         "id" => id,
         "namespace" => METAFIELD_TEST_NAMESPACE,
         "key" => @key,
