@@ -10,13 +10,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SHOPIFY_DOMAIN: "${{ secrets.SHOPIFY_DOMAIN }}"
+      SHOPIFY_ADMIN_TOKEN: "${{ secrets.SHOPIFY_ADMIN_TOKEN }}"
     name: Ruby ${{ matrix.ruby }}
     strategy:
       matrix:
         ruby: ['4.0', '3.4', '3.3', '3.2', '3.1', '3.0', '2.7']
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           persist-credentials: false
       - name: Set up Ruby

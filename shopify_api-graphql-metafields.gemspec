@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "shopify_api-graphql-request"
   spec.add_dependency "strings-case"
+  spec.add_development_dependency "csv"
   spec.add_development_dependency "dotenv"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
