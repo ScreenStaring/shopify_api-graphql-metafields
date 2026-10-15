@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe ShopifyAPI::Metafields::Metafield do
+RSpec.describe ShopifyAPI::GraphQL::Metafields do
   METAFIELD_TEST_KEY = "testsuite"
 
   describe "#set" do

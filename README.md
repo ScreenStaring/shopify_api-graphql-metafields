@@ -1,23 +1,22 @@
-# ShopifyAPI::Metafields
+# ShopifyAPI::GraphQL::Metafields
 
-User-friendly metafield wrapper around Shopify's GraphQL Admin API with built-in retry, batching, and error handling,
+User-friendly metafield wrapper around Shopify's GraphQL Admin API with built-in retry, batching, and error handling.
 
 ## Installation
 
 ```bash
-bundle add shopify_api-metafields
+bundle add shopify_api-graphql-metafields
 ```
 
 If bundler is not being used to manage dependencies:
 
 ```bash
-gem install shopify_api-metafields
+gem install shopify_api-graphql-metafields
 ```
 
 ## Usage
 
-`ShopifyAPI::Metafields` supports CRUD operations on Metafields and Metafield Definitions, and supports
-setting and creating metafields in bulk.
+`ShopifyAPI::GraphQL::Metafields` supports CRUD operations on Metafields and Metafield Definitions, and supports setting metafields in bulk.
 
 ### Metafields
 
@@ -26,7 +25,7 @@ setting and creating metafields in bulk.
 You can upsert a single metafield or multiple metafields:
 
 ```rb
-require "shopify_api/metafields"
+require "shopify_api/graphql/metafields"
 
 metafields = [
   {
@@ -46,7 +45,7 @@ metafields = [
   }
 ]
 
-mf = ShopifyAPI::Metafields::Metafield.new(shop, token)
+mf = ShopifyAPI::GraphQL::Metafields.new(shop, token)
 
 begin
   results = mf.set(metafields)
@@ -54,7 +53,7 @@ begin
     # result is a Hash with underscored Symbol keys
     p result.slice(:id, :value)
   end
-rescue ShopifyAPI::Metafields::Error => e
+rescue ShopifyAPI::GraphQL::Metafields::Error => e
   p e
 end
 ```
@@ -77,7 +76,7 @@ metafields = [
   }
 ]
 
-mf = ShopifyAPI::Metafields::Metafield.new(shop, token)
+mf = ShopifyAPI::GraphQL::Metafields.new(shop, token)
 
 begin
   results = mf.delete(metafields)
@@ -85,7 +84,7 @@ begin
     # result is a Hash
     p result.slice(:key, :namespace)
   end
-rescue ShopifyAPI::Metafields::Error => e
+rescue ShopifyAPI::GraphQL::Metafields::Error => e
   p e
 end
 ```
@@ -97,7 +96,7 @@ To override the fields returned see [Field Selection](#field-selection).
 Use the `:fields` option to select what fields are returned. This accepts an `Array` of field names:
 
 ```rb
-mf = ShopifyAPI::Metafields::Metafield.new(shop, token)
+mf = ShopifyAPI::GraphQL::Metafields.new(shop, token)
 mf.set(metafield, :fields => %w[compare_digest legacy_resource_id description])
 ```
 
@@ -110,9 +109,9 @@ mf.set(metafield, :fields => "legacyResourceId constraints { key }")
 ### Setting Metafields in Bulk
 
 ```rb
-require "shopify_api/metafields"
+require "shopify_api/graphql/metafields"
 
-set = ShopifyAPI::Metafields::Batch::Set.new(shop, token)
+set = ShopifyAPI::GraphQL::Metafields::Batch::Set.new(shop, token)
 set << metafield1
 set << metafield2
 # ...
@@ -120,7 +119,7 @@ set << metafield100
 
 begin
   result = set.flush!
-rescue ShopifyAPI::Metafields::Batch::Error => e
+rescue ShopifyAPI::GraphQL::Metafields::Batch::Error => e
   p "Bulk set failed: #{e}"
   if e.results.any?
     p "We did have _some_ success:"
@@ -146,7 +145,7 @@ Once `#flush!` is called worker threads (if needed) will be spawned and metafiel
 You can control the number of threads via the `:worker_count` option:
 
 ```rb
-set = ShopifyAPI::Metafields::Bulk.new(shop, token, :worker_count => 8)
+set = ShopifyAPI::GraphQL::Metafields::Bulk.new(shop, token, :worker_count => 8)
 ```
 
 Workers are spawned based on the batch size. If you have 50 metafields only 2 workers will be spawned. If you have 25 or less only no workers are spawned.
@@ -165,9 +164,9 @@ If you need this you can use Shopify's Bulk API via [`ShopifyAPI::GraphQL::Bulk`
 ### Metafield Definitions
 
 ```rb
-require "shopify_api/metafields"
+require "shopify_api/graphql/metafields"
 
-dfn = ShopifyAPI::Metafields::Definition.new(shop, token)
+dfn = ShopifyAPI::GraphQL::Metafields::Definition.new(shop, token)
 result = dfn.create(
   :name => "My amaaaazing definition",
   :namespace => "sshaw",

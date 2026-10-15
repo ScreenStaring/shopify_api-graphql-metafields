@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe ShopifyAPI::Metafields::Definition do
+RSpec.describe ShopifyAPI::GraphQL::Metafields::Definition do
   before do
     @key = "testsuite-%d" % Process.clock_gettime(Process::CLOCK_REALTIME, :nanosecond)
     @definition = {

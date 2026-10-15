@@ -4,7 +4,7 @@ require "csv"
 require "dotenv"
 require "json"
 require "open3"
-require "shopify_api/metafields"
+require "shopify_api/graphql/metafields"
 require "gid"
 
 Dotenv.load
