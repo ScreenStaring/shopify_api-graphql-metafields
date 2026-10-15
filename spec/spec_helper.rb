@@ -23,7 +23,11 @@ module Util
       options.join(" ")
     )
 
-    warn command if ENV["DEBUG"] == "1"
+    if ENV["DEBUG"] == "1"
+      warn command
+             .sub(ENV["SHOPIFY_DOMAIN"], "XXX")
+             .sub(ENV["SHOPIFY_ADMIN_TOKEN"], "XXX")
+    end
 
     stdout, stderr, status = Open3.capture3(command)
     # If only some rows fail we'll have no stderr
