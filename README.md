@@ -16,7 +16,7 @@ gem install shopify_api-metafields
 
 ## Usage
 
-`ShopifyAPI::Metafields` support CRUD operations on Metafields and Metafield Definitions, and supports
+`ShopifyAPI::Metafields` supports CRUD operations on Metafields and Metafield Definitions, and supports
 setting and creating metafields in bulk.
 
 ### Metafields
@@ -107,6 +107,55 @@ Or a String containing literal GraphQL fields:
 mf.set(metafield, :fields => "legacyResourceId constraints { key }")
 ```
 
+### Setting Metafields in Bulk
+
+```rb
+require "shopify_api/metafields"
+
+set = ShopifyAPI::Metafields::Batch::Set.new(shop, token)
+set << metafield1
+set << metafield2
+# ...
+set << metafield100
+
+begin
+  result = set.flush!
+rescue ShopifyAPI::Metafields::Batch::Error => e
+  p "Bulk set failed: #{e}"
+  if e.results.any?
+    p "We did have _some_ success:"
+    pp e.results
+  end
+
+  if e.errors.any?
+    p "We encountered some errors:"
+    pp e.errors
+  end
+
+  if e.user_errors.any?
+    p "We encountered some user errors:"
+    pp e.user_errors
+  end
+end
+```
+
+Note that this _does not_ use the Shopify Bulk API. If you want to use the Bulk API for metafields or other operations
+see [`ShopifyAPI::GraphQL::Bulk`](https://github.com/ScreenStaring/shopify_api-graphql-bulk).
+
+Once `#flush!` is called worker threads (if needed) will be spawned and metafields will be set 25 at a time, per Shopify's `Mutations.metafieldsSet` call limit.
+You can control the number of threads via the `:worker_count` option:
+
+```rb
+set = ShopifyAPI::Metafields::Bulk.new(shop, token, :worker_count => 8)
+```
+
+Workers are spawned based on the batch size. If you have 50 metafields only 2 workers will be spawned. If you have 25 or less only no workers are spawned.
+
+The default number of workers is 4.
+
+The return value is an `Array` of results like one gets with `Metafield#set`. The indices will align with the input metafields' indices.
+A `nil` value means that position errored.
+
 ### Deleting Metafields in Bulk
 
 TODO!
@@ -144,7 +193,7 @@ result = dfn.update(
 
 Similar to other metafield operation you can specify the returned fields:
 
-```
+```rb
 id = { :namespace => "sshaw", :key => "ingredients", :owner_type => "PRODUCT" }
 dfn.get(id, :fields => %w[id pinned_position])
 

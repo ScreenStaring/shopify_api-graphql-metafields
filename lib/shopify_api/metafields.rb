@@ -17,4 +17,5 @@ module ShopifyAPI
 end
 
 require_relative "metafields/metafield"
+require_relative "metafields/batch"
 require_relative "metafields/definition"
