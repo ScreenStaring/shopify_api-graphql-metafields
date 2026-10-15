@@ -1,0 +1,9 @@
+Handle,Title,Variant SKU,Published,Option1 Name,Option1 Value,Metafield Owner,Metafield Type,Metafield Namespace,Metafield Key,Metafield Value,Vendor,Body
+add-metafield,Add Metafield,TEST-ADD,FALSE,Title,Default Title,Product,,,,,shopifyapi-metafields,Used by ShopifyAPI::Metafields test suite
+update-metafield,Update Metafield,TEST-UPDATE,FALSE,Title,Default Title,Product,number_integer,shopifyapi-metafields,testsuite,123,shopifyapi-metafields,Used by ShopifyAPI::Metafields test suite
+delete-metafield-1,Delete Metafield 1,TEST-DELETE1,FALSE,Title,Default Title,Product,json,shopifyapi-metafields,testsuite,[1],shopifyapi-metafields,Used by ShopifyAPI::Metafields test suite
+delete-metafield-2,Delete Metafield 2,TEST-DELETE2,FALSE,Title,Default Title,Product,json,shopifyapi-metafields,testsuite,[2],shopifyapi-metafields,Used by ShopifyAPI::Metafields test suite
+delete-metafield-3,Delete Metafield 3,TEST-DELETE3,FALSE,Title,Default Title,Product,json,shopifyapi-metafields,testsuite,[3],shopifyapi-metafields,Used by ShopifyAPI::Metafields test suite
+delete-metafield-fields-1,Delete Metafield Fields 1,TEST-DELETE-FIELDS1,FALSE,Title,Default Title,Product,json,shopifyapi-metafields,testsuite,[1],shopifyapi-metafields,Used by ShopifyAPI::Metafields test suite
+delete-metafield-fields-2,Delete Metafield Fields 2,TEST-DELETE-FIELDS2,FALSE,Title,Default Title,Product,json,shopifyapi-metafields,testsuite,[2],shopifyapi-metafields,Used by ShopifyAPI::Metafields test suite
+delete-metafield-fields-3,Delete Metafield Fields 3,TEST-DELETE-FIELDS3,FALSE,Title,Default Title,Product,json,shopifyapi-metafields,testsuite,[3],shopifyapi-metafields,Used by ShopifyAPI::Metafields test suite
