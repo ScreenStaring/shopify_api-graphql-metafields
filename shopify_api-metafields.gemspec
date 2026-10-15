@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "strings/case"
 require_relative "lib/shopify_api/metafields/version"
 
 Gem::Specification.new do |spec|
@@ -37,5 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "shopify_api-graphql-request"
   spec.add_dependency "strings-case"
   spec.add_development_dependency "dotenv"
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
   spec.add_development_dependency "tiny_gid"
 end
