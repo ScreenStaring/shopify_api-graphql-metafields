@@ -30,7 +30,8 @@ jobs:
     env:
       SHOPIFY_DOMAIN: "${{ secrets.SHOPIFY_DOMAIN }}"
       SHOPIFY_ADMIN_TOKEN: "${{ secrets.SHOPIFY_ADMIN_TOKEN }}"
-      SHOPIFY_DEV_TOOLS_VERSION: "0.1.3"
+      # Need 0.1.4 minimum to delete metafield definitons
+      SHOPIFY_DEV_TOOLS_VERSION: "0.1.4"
       SHOPIFY_DEV_TOOLS_DIR: "${{ github.workspace }}/.shopify-dev-tools"
     name: Ruby ${{ matrix.ruby }}
     strategy:

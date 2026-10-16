@@ -204,13 +204,14 @@ dfn.get(id, :fields => "id pinnedPosition constraints { key value }")
 
 [Shopify Development Tools](https://github.com/ScreenStaring/shopify-dev-tools/) is used to import the text fixtures and retrieve values. The `sdt` executable must be in your path.
 
-A Shopify test store is required. `cp .env.template .env` and fill-in the values.
+A Shopify test store is required. `cp .env.template .env` and fill-in the values. Requests will be made to the given store.
+The token needs permission to create metafields and metafield definitions.
 
 ## See Also
 
 - [Shopify Dev Tools](https://github.com/ScreenStaring/shopify-dev-tools/) - Command-line program to assist with the development and/or maintenance of Shopify apps and stores
 - [`ShopifyAPI::GraphQL::Tiny`](https://github.com/ScreenStaring/shopify_api-graphql-tiny/) - Lightweight, no-nonsense, Shopify GraphQL Admin API client with built-in pagination and retry
-- [`ShopifyAPI::GraphQL::Request`](https://github.com/ScreenStaring/shopify_api-graphql-request) - A higher-level wrapper around this class with improved exception handling and `:snake_case` hash key conversion
+- [`ShopifyAPI::GraphQL::Request`](https://github.com/ScreenStaring/shopify_api-graphql-request) - A higher-level wrapper around `Tiny` with improved exception handling and `:snake_case` hash key conversion
 - [`TinyGID`](https://github.com/sshaw/tiny_gid/) - Build Global ID (`gid://`) URI strings from scalar values
 
 ## License

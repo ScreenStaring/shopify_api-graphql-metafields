@@ -79,4 +79,11 @@ RSpec.configure do |config|
       SKU_MAPPING[csv[i]["Variant SKU"]] = row["id"]
     end
   end
+
+  config.after(:suite) do
+    extend Util
+
+    sdt("products delete", SKU_MAPPING.values)
+    sdt("metafield def delete", "product@#{METAFIELD_TEST_NAMESPACE}")
+  end
 end
