@@ -21,7 +21,7 @@ module ShopifyAPI
         def delete(metafields, options = nil)
           @delete.execute(metafields, options).dig(:data, :metafields_delete, :deleted_metafields)
         rescue *WRAPPED_ERRORS => e
-          raise Error, "failed delete metafields: #{e}"
+          raise Error, "failed to delete metafields: #{e}"
         end
       end
     end

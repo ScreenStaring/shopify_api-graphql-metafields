@@ -11,7 +11,7 @@ module ShopifyAPI
           DEFAULT_UPLOAD_GROUPS = 4
 
           def initialize(shop, token, options = nil)
-            super(shop, token)
+            super(shop, token, options)
 
             @shop = shop
             @token = token
@@ -77,12 +77,6 @@ module ShopifyAPI
               raise Error.new("Failed to set all metafields: #{errors.size} error(s): #{message}", results, errors, user_errors)
             end
 
-            if user_errors.any?
-              # This error can be a bit misleading since any array positions shown will likely not be correct
-              message = user_errors.map(&:message).join(", ")
-              raise Error.new("Failed to set all metafields: #{user_errors.size} user error(s): #{message}", results, errors, user_errors)
-            end
-
             results
           end
 
@@ -96,7 +90,7 @@ module ShopifyAPI
               # the caller as if it was a single metafieldSet call
               results = Array.new(batches.sum(&:size))
 
-              set = Metafields::Set.new(@shop, @token)
+              set = Metafields::Set.new(@shop, @token, @options)
 
               offset = 0
 

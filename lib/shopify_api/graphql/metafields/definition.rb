@@ -59,7 +59,7 @@ module ShopifyAPI
         GQL
 
         def create(definition, options = nil)
-          fields = options ? options[:fields] : DEFAULT_CREATE_FIELDS
+          fields = options&.dig(:fields) || DEFAULT_CREATE_FIELDS
 
           result = execute(
             sprintf(CREATE, field_string(fields)),
@@ -72,7 +72,7 @@ module ShopifyAPI
         end
 
         def delete(id_or_identifier, options = nil)
-          fields = options ? options[:fields] : DEFAULT_DELETE_FIELDS
+          fields = options&.dig(:fields) || DEFAULT_DELETE_FIELDS
 
           result = execute(
             sprintf(DELETE, field_string(fields)),
@@ -86,7 +86,7 @@ module ShopifyAPI
         end
 
         def get(id_or_identifier, options = nil)
-          fields = options ? options[:fields] : DEFAULT_GET_FIELDS
+          fields = options&.dig(:fields) || DEFAULT_GET_FIELDS
 
           execute(
             sprintf(GET, field_string(fields)),
@@ -95,7 +95,7 @@ module ShopifyAPI
         end
 
         def update(definition, options = nil)
-          fields = options ? options[:fields] : DEFAULT_UPDATE_FIELDS
+          fields = options&.dig(:fields) || DEFAULT_UPDATE_FIELDS
 
           result = execute(
             sprintf(UPDATE, field_string(fields)),

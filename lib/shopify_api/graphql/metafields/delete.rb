@@ -24,10 +24,12 @@ module ShopifyAPI
           raise ArgumentError, "metafields required" if metafields.size == 0
           raise ArgumentError, "#{metafields.size} metafields provided: Shopify allows a maximum of #{MAX}" if metafields.size > MAX
 
-          fields = options ? options[:fields] : DEFAULT_FIELDS
+          options = (options || {}).dup
+          fields = options.delete(:fields) || DEFAULT_FIELDS
           super(
             sprintf(MUTATION, field_string(fields)),
-            :metafields => metafields
+            { :metafields => metafields },
+            options
           )
         end
       end
