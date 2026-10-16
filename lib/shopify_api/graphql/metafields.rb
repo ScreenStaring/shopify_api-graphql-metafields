@@ -1,11 +1,19 @@
 # frozen_string_literal: true
 
+require "shopify_api/graphql/tiny"
+require "shopify_api/graphql/request"
+
 require_relative "metafields/version"
 
 module ShopifyAPI
   module GraphQL
     module Metafields
       Error = Class.new(StandardError)
+
+      WRAPPED_ERRORS = [
+        ShopifyAPI::GraphQL::Tiny::Error,
+        ShopifyAPI::GraphQL::Request::Error
+      ].freeze
 
       USER_ERRORS =<<-GQL
         userErrors {

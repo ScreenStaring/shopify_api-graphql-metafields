@@ -2,6 +2,8 @@
 
 User-friendly metafield wrapper around Shopify's GraphQL Admin API with built-in retry, batching, and error handling.
 
+[![CI](https://github.com/ScreenStaring/shopify_api-graphql-metafields/actions/workflows/main.yml/badge.svg)](https://github.com/ScreenStaring/shopify_api-graphql-metafields/actions)
+
 ## Installation
 
 ```bash

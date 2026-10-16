@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "shopify_api-graphql-request"
+  spec.add_dependency "shopify_api-graphql-tiny"
   spec.add_dependency "strings-case"
   spec.add_development_dependency "csv"
   spec.add_development_dependency "dotenv"

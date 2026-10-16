@@ -14,10 +14,14 @@ module ShopifyAPI
 
         def set(metafields, options = nil)
           @set.execute(metafields, options).dig(:data, :metafields_set, :metafields)
+        rescue *WRAPPED_ERRORS => e
+          raise Error, "failed to set metafields: #{e}"
         end
 
         def delete(metafields, options = nil)
           @delete.execute(metafields, options).dig(:data, :metafields_delete, :deleted_metafields)
+        rescue *WRAPPED_ERRORS => e
+          raise Error, "failed delete metafields: #{e}"
         end
       end
     end
