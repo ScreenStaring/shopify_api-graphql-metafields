@@ -84,6 +84,7 @@ RSpec.configure do |config|
     extend Util
 
     sdt("products delete", SKU_MAPPING.values)
+    # If we don't run the appropriate tests this will fail. Need a --quite option
     sdt("metafield def delete", "product@#{METAFIELD_TEST_NAMESPACE}")
   end
 end
