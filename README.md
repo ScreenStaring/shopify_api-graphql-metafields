@@ -202,12 +202,26 @@ dfn.get(id, :fields => %w[id pinned_position])
 dfn.get(id, :fields => "id pinnedPosition constraints { key value }")
 ```
 
+## Why Use This Instead of Shopify's API Client?
+
+- Easy-to-use
+- Built-in retry
+- Batching
+- Lightweight
+- You can use :snake_case hash keys
+
+Overall, Shopify's API client is bloated trash that will give you development headaches and long-term maintenance nightmares.
+
+We used to use it, staring way back in 2015, but eventually had to pivot away from their Ruby libraries due to developer frustration
+and high maintenance cost (and don't get us started on the ShopifyApp gem!@#).
+
+For more information see: Shopify/shopify-api-ruby#1181
+
 ## Development
 
-[Shopify Development Tools](https://github.com/ScreenStaring/shopify-dev-tools/) is used to import the text fixtures and retrieve values. The `sdt` executable must be in your path.
+[Shopify Development Tools](https://github.com/ScreenStaring/shopify-dev-tools/) is used to import the product fixtures and retrieve values. The `sdt` executable must be in your path.
 
-A Shopify test store is required. `cp .env.template .env` and fill-in the values. Requests will be made to the given store.
-The token needs permission to create metafields and metafield definitions.
+A Shopify test store is required. `cp .env.template .env` and fill-in the values. Requests will be made to the given store. The token needs permission to create metafields and metafield definitions.
 
 ## See Also
 
