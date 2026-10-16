@@ -1,3 +1,0 @@
-Owner type,name,key,type,namespace,description,pin,Constraint key,Validation name,Validation value,Validation name,Validation value
-PRODUCT,Update,update,single_line_text_field,shopifyapi-metafields,Used by ShopifyAPI::Metafields test suite,false,,,,,
-PRODUCT,Delete,delete,single_line_text_field,shopifyapi-metafields,Used by ShopifyAPI::Metafields test suite,false,,,,,
